@@ -1,0 +1,295 @@
+% =============================================================================
+%  CURSUS HONORUM  ::  Plantilla académica de Currículum Vítae
+%  =============================================================================
+%  Versión:        1.0
+%  Autor original: Giorgio Angelo Reveco Barraza
+%  Licencia:       MIT (uso libre con atribución)
+%  Compilador:     pdflatex (compatible con MiKTeX, TeX Live, Overleaf)
+%  =============================================================================
+%
+%  DESCRIPCIÓN
+%  -----------
+%  Cursus Honorum es una plantilla de CV de orientación académica y humanista,
+%  diseñada para profesionales con trayectorias densas (docencia universitaria,
+%  investigación, consultoría, formación posgradual extensa). Privilegia la
+%  legibilidad jerárquica sobre la ornamentación, emplea tipografía serif
+%  (Palatino vía mathpazo) y se apoya en una paleta de dos tonos funcionales.
+%
+%  ESTRUCTURA
+%  ----------
+%  1. Encabezado con datos de contacto e iconografía
+%  2. Perfil profesional (resumen narrativo)
+%  3. Habilidades (idiomas, software, gestión, comunicación)
+%  4. Experiencia profesional (con subsecciones temáticas)
+%  5. Educación y formación académica
+%  6. Reconocimientos
+%  7. Certificaciones complementarias
+%
+%  INSTRUCCIONES DE USO
+%  --------------------
+%  - Sustituya los datos del ejemplo por los suyos en los puntos marcados con
+%    el comentario "% [EDITAR]".
+%  - Las subsecciones de Experiencia Profesional pueden añadirse, eliminarse o
+%    reordenarse libremente; basta con duplicar o suprimir bloques completos.
+%  - Para suprimir una sección entera, comente toda la sección con %.
+%  - El paquete fontawesome5 se carga condicionalmente: si no está instalado,
+%    los iconos se sustituyen por etiquetas textuales sin afectar la compilación.
+%  - Las URL deben proporcionarse completas (con https://) en \href; el texto
+%    visible puede acortarse a discreción.
+%
+%  PERSONALIZACIÓN CROMÁTICA
+%  -------------------------
+%  Los tres colores del diseño se definen en el bloque "Paleta de color":
+%    \definecolor{acento}    -> azul marino (jerarquías, enlaces)
+%    \definecolor{gris}      -> subsecciones
+%    \definecolor{grisclaro} -> reglas tenues
+%  Modifique los valores HTML para adaptar la paleta a otra identidad visual.
+%
+% =============================================================================
+
+\documentclass[11pt,a4paper]{article}
+
+% ----- Codificación e idioma --------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-noshorthands]{babel}
+\usepackage[none]{hyphenat}
+\usepackage{microtype}
+
+% ----- Tipografía -------------------------------------------------------------
+\usepackage{mathpazo}    % Palatino: serif académica, alta legibilidad
+\usepackage{microtype}
+
+% ----- Geometría --------------------------------------------------------------
+\usepackage[left=1.5cm,right=1.5cm,top=1.2cm,bottom=1.4cm]{geometry}
+
+% ----- Paleta de color --------------------------------------------------------
+\usepackage{xcolor}
+\definecolor{acento}{HTML}{1F3A5F}     % [PERSONALIZABLE] Azul marino
+\definecolor{gris}{HTML}{4A4A4A}        % [PERSONALIZABLE] Gris medio
+\definecolor{grisclaro}{HTML}{B0B0B0}   % [PERSONALIZABLE] Gris claro
+
+% ----- Estructura, listas, tablas ---------------------------------------------
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{ragged2e}
+\usepackage{array}
+\usepackage{tabularx}
+
+% ----- Espaciado de párrafo ---------------------------------------------------
+\usepackage{parskip}
+\setlength{\parskip}{2pt plus 1pt}
+
+% ----- Hipervínculos ----------------------------------------------------------
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=acento,
+  urlcolor=acento,
+  pdftitle={Curriculum Vitae},                  % [EDITAR] Título del PDF
+  pdfauthor={Nombre Apellido}                    % [EDITAR] Autor del PDF
+}
+
+% ----- Iconos (con fallback si el paquete no está instalado) ------------------
+\IfFileExists{fontawesome5.sty}{%
+  \usepackage{fontawesome5}%
+}{%
+  \providecommand{\faEnvelope}{\textbf{Email:}}%
+  \providecommand{\faPhone}{\textbf{Tel:}}%
+  \providecommand{\faLinkedin}{\textbf{LinkedIn:}}%
+  \providecommand{\faGithub}{\textbf{GitHub:}}%
+  \providecommand{\faOrcid}{\textbf{ORCID:}}%
+  \providecommand{\faGlobe}{\textbf{Web:}}%
+}
+
+% ----- Configuración de listas ------------------------------------------------
+\setlist[itemize]{leftmargin=1.3em, itemsep=1pt, topsep=1pt, parsep=0pt,
+                  label=\textcolor{acento}{\scriptsize$\bullet$}}
+\setlist[description]{leftmargin=0pt, itemsep=3pt, topsep=2pt, parsep=0pt,
+                     font=\bfseries\color{acento}}
+
+% ----- Formato de secciones (sin titlesec) -----------------------------------
+% Definición manual de \section y \subsection para evitar incompatibilidades
+% conocidas entre titlesec y kernels recientes de LaTeX.
+\makeatletter
+\renewcommand{\section}[1]{%
+  \par\vspace{10pt}%
+  \noindent{\large\bfseries\color{acento}\MakeUppercase{#1}}\par%
+  \vspace{0.2em}%
+  {\color{acento}\hrule height 1pt}%
+  \par\vspace{4pt}%
+  \@afterheading%
+}
+
+\renewcommand{\subsection}[1]{%
+  \par\vspace{6pt}%
+  \noindent{\normalsize\bfseries\color{gris}#1}\par%
+  \vspace{0.2em}%
+  {\color{grisclaro}\hrule height 0.4pt}%
+  \par\vspace{2pt}%
+  \@afterheading%
+}
+\makeatother
+
+% ----- Página sin numerar -----------------------------------------------------
+\pagestyle{empty}
+
+\begin{document}
+
+% =============================================================================
+%  ENCABEZADO  [EDITAR todos los campos de esta sección]
+% =============================================================================
+\begin{center}
+  {\Huge\bfseries\color{acento} Nombre Apellido Apellido}\\[3pt]
+  {\large\itshape Título Académico Principal \textbar{} Segundo Título \textbar{} Cargo Actual}\\[8pt]
+  \small
+  \faEnvelope~tu.correo@dominio.com \quad
+  \faPhone~+56 9 0000 0000 \quad
+  \faLinkedin~\href{https://www.linkedin.com/in/usuario}{linkedin.com/in/usuario}\\[3pt]
+  \faGithub~\href{https://github.com/usuario}{github.com/usuario} \quad
+  \faOrcid~\href{https://orcid.org/0000-0000-0000-0000}{0000-0000-0000-0000} \quad
+  \faGlobe~\href{https://tusitioweb.com}{tusitioweb.com}
+\end{center}
+
+% =============================================================================
+%  PERFIL PROFESIONAL  [EDITAR el párrafo conforme a su trayectoria]
+% =============================================================================
+\section{Perfil Profesional}
+\begin{justify}
+Profesional con formación en [DISCIPLINA PRINCIPAL] y experiencia consolidada en [ÁREA DE DESEMPEÑO]. Su perfil combina [TRES O CUATRO COMPETENCIAS NUCLEARES SEPARADAS POR COMAS], aplicados al [CONTEXTO DE TRABAJO HABITUAL]. Ha participado en [TIPOS DE PROYECTOS O ACTIVIDADES], destacando por [CUALIDADES DISTINTIVAS QUE LO CARACTERIZAN]. Recomendación: redactar en tercera persona, mantener entre 60 y 100 palabras, evitar adjetivos vacíos del tipo «proactivo», «dinámico», «orientado a resultados».
+\end{justify}
+
+% =============================================================================
+%  HABILIDADES  [EDITAR cada item conforme a su perfil]
+% =============================================================================
+\section{Habilidades}
+\begin{description}
+  \item[Idiomas:] Español (nativo); Inglés (nivel CEFR); Otro idioma (nivel CEFR).
+  \item[Programación y Software:] Lista de lenguajes, frameworks y herramientas separados por comas.
+  \item[Gestión y Análisis:] Metodologías, marcos de trabajo y áreas de especialización analítica.
+  \item[Comunicación e Innovación:] Habilidades blandas de orientación profesional concreta.
+\end{description}
+
+% =============================================================================
+%  EXPERIENCIA PROFESIONAL
+% =============================================================================
+\section{Experiencia Profesional}
+
+% ----- Subsección 1: Bloque tabular para puestos análogos ---------------------
+\subsection{Categoría Profesional Principal \hfill {\normalfont\itshape Año a Presente}}
+
+\noindent\begin{tabularx}{\textwidth}{@{}>{\bfseries}l X r@{}}
+Cargo & \textsc{Institución u Organización}, Ciudad & \textit{Año a Presente}\\
+Cargo & \textsc{Institución u Organización}, Ciudad & \textit{Año a Año}\\
+Cargo & \textsc{Institución u Organización}, Ciudad & \textit{Año}\\
+\end{tabularx}
+
+\smallskip
+
+\noindent\textbf{Resumen narrativo del rol:} descripción de las funciones, logros y contribuciones que caracterizan la categoría profesional principal. Se recomienda enfocarse en verbos de acción (lideró, diseñó, implementó, coordinó) y resultados verificables.
+
+% ----- Subsección 2: Listado de competencias o entregables --------------------
+\subsection{Categoría Secundaria con Listado de Elementos}
+
+\noindent\textbf{Texto introductorio que contextualice el listado.} A continuación se enumeran los elementos en disposición tricolumnar:
+
+\begin{multicols}{3}
+\begin{itemize}
+\item Elemento uno
+\item Elemento dos
+\item Elemento tres
+\item Elemento cuatro
+\item Elemento cinco
+\item Elemento seis
+\item Elemento siete
+\item Elemento ocho
+\item Elemento nueve
+\end{itemize}
+\end{multicols}
+
+% ----- Subsección 3: Cargo único con descripción extensa ----------------------
+\subsection{Proyecto o Cargo Específico}
+
+\noindent\textbf{Cargo Desempeñado}, \textsc{Institución}\hfill\textit{Año a Presente}\\
+Descripción detallada de funciones, alcance del proyecto, resultados alcanzados y aspectos relevantes de la responsabilidad ejercida. Se sugiere mantener el bloque entre tres y cinco líneas.
+
+% ----- Subsección 4: Producción académica con DOI/ORCID -----------------------
+\subsection{Producción Académica \hfill {\normalfont\itshape ORCID: \href{https://orcid.org/0000-0000-0000-0000}{0000-0000-0000-0000}}}
+
+\begin{itemize}
+\item \textbf{Apellido, N. N.} (Año). \textit{Título de la publicación o preprint}. Repositorio o Revista. \href{https://doi.org/ejemplo}{doi.org/ejemplo}
+\item \textbf{Apellido, N. N.} (Año). \textit{Título de la publicación o preprint}. Repositorio o Revista. \href{https://doi.org/ejemplo}{doi.org/ejemplo}
+\end{itemize}
+
+% ----- Subsección 5: Múltiples cargos breves con descripción individual ------
+\subsection{Categoría Profesional Tercera \hfill {\normalfont\itshape Año a Presente}}
+
+\noindent\textbf{Cargo}, \textsc{Empresa u Organización}\hfill\textit{Año a Presente}\\
+Descripción concisa de las funciones y resultados, en una o dos líneas.
+
+\smallskip
+
+\noindent\textbf{Cargo}, \textsc{Empresa u Organización}, Ciudad\hfill\textit{Año a Presente}\\
+Descripción concisa de las funciones y resultados. Incluya enlaces relevantes con \href{https://ejemplo.com}{ejemplo.com} si procede.
+
+\smallskip
+
+\noindent\textbf{Cargo}, Independiente o Freelance\hfill\textit{Año a Presente}\\
+Descripción del trabajo independiente, especialización y, si aplica, métricas de impacto verificables.
+
+% ----- Subsección 6: Experiencia anterior tabulada ---------------------------
+\subsection{Categoría Anterior \hfill {\normalfont\itshape Años de Inicio a Cierre}}
+
+\noindent\begin{tabularx}{\textwidth}{@{}>{\bfseries}l X r@{}}
+Cargo & \textsc{Institución}, Ciudad & \textit{Año}\\
+Cargo & \textsc{Institución}, Ciudad & \textit{Año}\\
+Cargo & \textsc{Institución}, Ciudad & \textit{Año}\\
+\end{tabularx}
+
+\smallskip
+
+Resumen narrativo opcional que contextualice el período anterior, especialmente útil si se trata de experiencia formativa o de transición profesional.
+
+% =============================================================================
+%  EDUCACIÓN
+% =============================================================================
+\section{Educación y Formación Académica}
+
+\noindent\begin{tabularx}{\textwidth}{@{}l X r@{}}
+\textit{Cursando} & Programa de estudios, \textsc{Institución}, País & \textit{Desde Año}\\
+\textbf{Año} & Programa de estudios, \textsc{Institución}, País & \textit{Año a Año}\\
+\textbf{Año} & Programa de estudios, \textsc{Institución}, País & \\
+\textbf{Año} & Programa de estudios, \textsc{Institución}, País & \textit{Año a Año}\\
+\textbf{Año} & Programa de estudios, \textsc{Institución}, País & \\
+\textbf{Año} & Título de pregrado, mención si aplica, \textsc{Institución} & \textit{Año a Año}\\
+\end{tabularx}
+
+\smallskip
+{\small\itshape Notas adicionales relativas a becas, distinciones académicas o modalidades especiales de cursado.}
+
+% =============================================================================
+%  RECONOCIMIENTOS
+% =============================================================================
+\section{Reconocimientos}
+
+\noindent\textbf{Nombre del Reconocimiento}, \textsc{Institución que lo otorga}, Ciudad\hfill\textit{Año}\\
+Descripción del reconocimiento, criterios de adjudicación e implicancias profesionales o académicas que conlleva.
+
+\smallskip
+
+\noindent\textbf{Otro Reconocimiento}, \textsc{Institución}, Ciudad\hfill\textit{Año}\\
+Descripción concisa del motivo de la distinción y su contexto.
+
+% =============================================================================
+%  OTRAS CERTIFICACIONES
+% =============================================================================
+\section{Otras Certificaciones}
+
+\noindent\begin{tabularx}{\textwidth}{@{}l X@{}}
+\textbf{Año} & Nombre completo del curso o certificación, \textsc{Institución Emisora}\\
+\textbf{Año} & Nombre completo del curso o certificación, \textsc{Institución Emisora}\\
+\textbf{Año} & Múltiples certificaciones agrupables: Curso uno; Curso dos; Curso tres, \textsc{Plataforma}\\
+\textbf{Año} & Nombre del programa o certificado, \textsc{Institución Emisora}\\
+\end{tabularx}
+
+\end{document}
